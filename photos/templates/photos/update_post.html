@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card border-danger mt-5 p-4">
+        <h1 class="align-self-center mb-4">Edytuj wpis</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Edytuj wpis">
+        </form>
+    </div>
+</div>
+{% endblock main %}
+    

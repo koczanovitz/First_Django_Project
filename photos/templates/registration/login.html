@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+
+<section class="container d-flex justify-content-center col-sm-6 mt-5">
+
+
+    <form class="card text-center p-4" method="POST" action="{% url 'login' %}" >
+    {% csrf_token %}
+
+        {% if form.errors %}
+            <p>Użytkownik i hasło nie pasują. Spróbuj ponownie.</p>
+        {% endif %}
+
+        
+        <div>
+            <table>
+            {{ form.as_table }}
+            </table>
+        </div>
+        
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Zapamiętaj mnie
+            </label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block" type="submit" value="login">Zaloguj</button>
+        <input type="hidden" name="text" value="{{ next }}">
+        
+        <p><a href="{% url 'password_reset' %}">Nie pamiętam hasła</a></p>
+    </form>
+</section>
+
+{% endblock main %}
+
+
+

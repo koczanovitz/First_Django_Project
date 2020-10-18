@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container d-flex justify-content-center align-items-center mt-5 pt-5 ">
+    {% if form.errors %}
+        <p class="text-primary">Użytkownik i hasło nie pasują. Spróbuj ponownie.</p>
+    {% endif %}
+    <div class="card p-3">
+        <form method="POST" action="{% url 'photos:register' %}">
+            {% csrf_token %}
+            <table>
+            {{ form.as_table }}
+            </table>
+
+            <input type="submit" value="Zarejestruj się">
+        </form>
+    </div>
+</div>
+
+{% endblock main %}

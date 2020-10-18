@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="card border-danger mt-5 p-4">
+        <h1 class="align-self-center mb-4">Poniżej wyniki dla: {{ phrase }}</h1>
+        {% for user in users %}
+            <p>Użytkownik: <a href="{{ user.get_absolute_url }}">{{ user.email }} {{ user.firstname }} {{ user.lastname }}</a></p>
+        {% empty %}
+            <p>Brak użytkownika</p>
+        {% endfor %}      
+    </div>
+</div>
+{% endblock main %}

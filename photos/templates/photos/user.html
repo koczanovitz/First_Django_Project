@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+    <div class="container d-flex justify-content-center flex-wrap">
+        <div class="card col-10 mt-3 row p-0 grid-1">
+            
+            <div class=" rounded-circle overflow-hidden d-flex justify-content-center align-items-center m-5 topbar-profile-photo">
+                {% if user.profile_photo %}
+                <img src="{{ user.profile_photo.url }}" alt="Profile photo of {{ user }}" style="transform: scale(1.5); width: 100%; position: absolute; left: 0">
+                {% else %}
+                <div class="user-img rounded-circle fs-3rem">   
+                    <i class="fas fa-user-astronaut"></i>
+                </div>
+                {% endif %}
+            </div>
+                
+                
+            <div class="grid-11 d-flex align-items-center ">
+                <h4 class="m-0">{{ user }}</h4>
+            </div>
+
+            <p class="grid-12 m-0">Posty: {{ user.photo_set.count }}</p>
+            <p class="grid-13 m-0">Obserwowani: {{ user.following.count }}</p> 
+            <p class="grid-14 m-0 ml-5">Obserwujący: {{ user.followers.count }}</p>
+            <p class="grid-15 text-wrap">WWW: {{ user.website|urlize }}</p>
+            <p class="grid-16 text-wrap overflow-auto m-0 ml-5">O mnie: {{ user.description }}</p>
+            
+            
+        </div>
+        <div class="container col-10 border-top mt-3 pt-3 mb-5">
+       
+            <div class="row flex-wrap">
+                {% for post in user.post_set.all %}
+                
+                    {% include "includes/card.html" with post=post %}
+                
+                {% endfor %}
+            </div>
+        </div>
+        
+    </div>
+
+
+    {% comment %} <div class="user-grid-box container-fluid h-100 w-100">
+        
+
+        <div class="box-1">
+            <div class="box-11">
+                <h1 class="text-primary">{{ user }}</h1>
+            </div>
+            <div class="box-12 d-flex justify-content-center align-items-center">
+                {% if user.profile_photo %}
+                <img src="{{ user.profile_photo.url }}" alt="Profile photo of {{ user }}" class="user-img rounded-circle">
+                {% else %}
+                <div class="avatar user-img rounded-circle text-primary"><i class="fas fa-user-astronaut"></i></div>
+                {% endif %}
+            </div>
+
+            <div class="box-13 d-flex justify-content-center align-items-center">
+                <div class="d-flex text-primary">
+                    <p class="mx-3">Posty: {{ user.photo_set.count }}</p>
+                    <p class="mx-3">Obserwowani: {{ user.following.count }}</p> 
+                    <p class="mx-3">Obserwujący: {{ user.followers.count }}</p> 
+                </div>
+            </div>
+            <p class="text-primary p-grid-1">WWW: {{ user.website|urlize }}</p>
+            <p class="description text-primary p-grid-2">O mnie: {{ user.description }}</p>
+    
+        </div>
+        <div class="box-2 d-flex justify-content-between">
+            {% for post in user.post_set.all %}
+            
+                {% include "includes/card.html" with post=post %}
+            
+            {% endfor %}
+        </div>
+
+    </div> {% endcomment %}
+
+{% endblock main %}

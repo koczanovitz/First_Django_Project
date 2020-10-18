@@ -1,0 +1,8 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+# Datasource local storage ignored files
+/../../../../../../../:\1_G_KOCZANOWICZ\2_NAUKA\1_PROGRAMOWANIE\1_PROGRAMOWANIE CODEBRAINERS\7_DJANGO_PROJEKT\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

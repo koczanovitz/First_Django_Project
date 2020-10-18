@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="container d-flex flex-column col-md-6 mt-4 mb-4">
+        <div class="card">
+            {% comment %} ---------------- user name and logo START --------------- {% endcomment %}
+            <div class="card-header">
+                <div class="d-flex flex-row align-items-center">
+                    <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center mr-3 post-profile-photo">
+                        {% if post.user.profile_photo %}
+                        <a href="{% url 'photos:user' user.pk %}">
+                            <img src="{{ user.profile_photo.url }}" style="transform: scale(1.5); width: 100%; position: absolute; left: 0; top:0" alt="Profile photo of {{ user }}" class=" rounded-circle">
+                        </a>
+                        {% else %}
+                        <div style="font-size: 2rem;" class="rounded-circle text-dark border border-dark post-profile-photo d-flex justify-content-center align-items-center">
+                            <i class="fas fa-user-astronaut"></i>
+                        </div>
+                        {% endif %}
+                    </div>
+                    
+                    <span class="font-weight-bold" style="font-size: 1.3rem;">{{ post.user }}</span>
+                    
+                    {% if post.user.profile_photo %}
+                    <a href="{% url 'photos:update_post' post.pk %}" class="btn p-0 ml-3">Edytuj</a> 
+                    <button class="btn p-0">       
+                        <form method='POST' action="{% url 'photos:delete_post' post.pk %}">
+                            {% csrf_token %}
+                            <input class="btn p-0 ml-1" type="submit" value="Usuń">
+                        </form>                                
+                    </button> 
+                    {% endif %}
+                    
+                </div>
+            </div>
+            {% comment %} ---------------- user name and logo END --------------- {% endcomment %}
+            <div class="card-body p-0">
+                {% comment %} ---------------- post image START --------------------- {% endcomment %}
+                <div class="embed-responsive embed-responsive-16by9">
+                    <img src="{{ post.image.url }}" alt="{{ post.content }}" class="embed-responsive-item">
+                </div>
+                {% comment %} ---------------- post image END --------------------- {% endcomment %}
+
+                {% comment %} ---------------- like and dislike START --------------------- {% endcomment %}
+                <div class="d-flex justify-content-between pl-3 pr-3 pt-3 pb-0 mb-0">
+                    <ul class="list-inline">
+                        <li class="list-inline-item">     
+                            <button id="like" data-url="{% url 'photos:like' post.pk %}" class="btn p-0" href="#">Polub</button>                              
+                        </li>
+                        <li class="list-inline-item">
+                             <button id="dislike" data-url="{% url 'photos:dislike' post.pk %}" class="btn p-0" href="#">Odlub</button>                              
+                        </li> 
+                        <li class="list-inline-item">
+                        {% if post.liked_by_user == True %}
+                            <button class="btn p-0">
+                                <svg width="1.6em" height="1.6em" viewBox="0 0 16 16" class="bi bi-heart text-danger" fill="currentColor"  xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg>
+                                 {{ post.like_count }}
+                            </button>
+                        {% else %}
+                            <button class="btn p-0">
+                                <svg width="1.6em" height="1.6em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                </svg>
+                                 {{ post.like_count }}
+                            </button>
+                        {% endif %} 
+                        </li>
+                    </ul>
+                {% comment %} ---------------- like and dislike END --------------------- {% endcomment %}
+
+                </div>
+                {% comment %} ---------------- post describe START ---------------------- {% endcomment %}
+                    <div class="text-justify pl-3 pr-3 overflow-auto">
+                        {% comment %} <p class="card-text ">{{ comment.created_timestamp }}</p> {% endcomment %}
+                        <p class="card-text pb-2 ">{{ post.content }}</p>
+                    </div>
+                {% comment %} ---------------- post describe END ------------------------- {% endcomment %}
+                {% comment %} ---------------- add comment START ------------------------- {% endcomment %}
+                <div class="row pl-3 pr-3 pb-2">
+                    <form id="addComment" class="col-8 " method="POST" action="{% url 'photos:create_comment' post.pk %}">
+                        {% csrf_token %}
+                        <textarea class="w-100 h-100" style="resize: none;" placeholder="Pamiętaj, bądź miły!" name="content" required></textarea>
+                    </form>
+                    <div class="col-4">
+                        <input form="addComment" class="btn btn-primary w-100 h-100" type="submit" value="Dodaj Komentarz">
+                    </div>
+                </div>
+                {% comment %} ---------------- add comment END ------------------------- {% endcomment %}
+                <div class="card-body border-top pt-2 pl-3 mt-2">
+                {% for comment in post.comment_set.all %}
+                    <div class="row pl-3">
+                        <h5>{{ comment.user }}</h5>
+                        {% if comment.user == request.user %}
+                        <a class="btn p-0 pl-2" href="{% url 'photos:update_comment' comment.pk %}">Edytuj</a>
+                        <form method='POST' action="{% url 'photos:delete_comment' comment.pk %}">
+                            {% csrf_token %}
+                            <input class="btn p-0 pl-1" type="submit" value="Usuń">
+                        </form>
+                        {% endif %}
+                    </div>
+                    <div class="mb-2">
+                        <p class="card-text">{{ comment.created_timestamp }}</p>
+                        <p class="card-text">{{ comment.content }}</p>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        </div>
+</div>
+{% endblock %}

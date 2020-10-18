@@ -1,0 +1,29 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block main %} 
+    {% comment %} <div class="hero">
+        <h2 class="text-primary text-uppercase">Zaloguj się do naszej wspaniałej strony społecznościowej ze zdjęciami</h2>
+
+        <a href="{% url 'login' %}" class="btn btn-primary">Zaloguj</a>
+        lub
+        <a href="{% url 'photos:register' %}" class="btn btn-secondary">Zarejestruj się</a>
+    </div> {% endcomment %}
+
+<div class="container d-flex justify-content-center mt-5">
+    <div class="card col-sm-6 pt-3 pb-3">
+        <div class="center-column text-center">
+            <span class="instaounce-logo">
+                <i class="fas fa-camera"></i> INSTAOUNCE
+            </span>
+            <p class="info">
+                Zaloguj się by ujrzeć nowy lepszy świat!
+            </p>
+
+            <a href="{% url 'login' %}" class="btn btn-primary">Zaloguj</a>
+            lub
+            <a href="{% url 'photos:register' %}" class="btn btn-secondary">Zarejestruj się</a>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

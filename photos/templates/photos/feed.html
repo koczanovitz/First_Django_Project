@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+
+{% block main %}
+
+<div class="mt-4">
+    <div class="container d-flex justify-content-center">
+        <div class="col-9">
+            <div class="row">
+                <div class="col-8">
+                    <!-- START OF STORIES -->
+                    <div class="card">
+                        <div class="card-body d-flex justify-content-start">
+                            <ul class="list-inline-item mb-0 p-0">
+                                <li class="list-inline-item">
+                                    <button class="btn p-0 m-0">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center story-profile-photo">
+                                                <svg width="56px" height="56px" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                                                    <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                                    <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <small>user-name</small>
+                                    </button>
+                                </li>
+                                <li class="list-inline-item">
+                                    <button class="btn p-0 m-0">
+                                        <div class="d-flex flex-column align-items-center">
+                                            <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center story-profile-photo">
+                                                <svg width="56px" height="56px" viewBox="0 0 16 16" class="bi bi-person-circle" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M13.468 12.37C12.758 11.226 11.195 10 8 10s-4.757 1.225-5.468 2.37A6.987 6.987 0 0 0 8 15a6.987 6.987 0 0 0 5.468-2.63z"/>
+                                                    <path fill-rule="evenodd" d="M8 9a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"/>
+                                                    
+                                                    <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zM0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8z"/>
+                                                </svg>
+                                            </div>
+                                        </div>
+                                        <small>user-name</small>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- END OF STORIES -->
+                    {% for post in post_list  %}
+                    <!-- START OF POSTs -->
+                    <div class="d-flex flex-column mt-4 mb-4">
+                    
+
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="d-flex flex-row align-items-center">
+                                    <div class="rounded-circle overflow-hidden d-flex justify-content-center align-items-center mr-3 post-profile-photo">
+                                        {% if post.user.profile_photo %}
+                                        <a href="{% url 'photos:user' user.pk %}">
+                                            <img src="{{ user.profile_photo.url }}" style="transform: scale(1.5); width: 100%; position: absolute; left: 0; top:0" alt="Profile photo of {{ user }}" class=" rounded-circle">
+                                        </a>
+                                        {% else %}
+                                        <div style="font-size: 2rem;" class="rounded-circle text-dark border border-dark post-profile-photo d-flex justify-content-center align-items-center">
+                                            <i class="fas fa-user-astronaut"></i>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <span class="font-weight-bold">{{ post.user }}</span>
+                                </div>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="embed-responsive embed-responsive-1by1">
+                                    <image src="{{ post.image.url }}" class="embed-responsive-item" alt="{{ post.content }}" ></image>
+                                </div>
+
+                                <div class="d-flex justify-content-between pl-3 pr-3 pt-3 pb-1">
+                                    <ul class="list-inline">
+                                        <li class="list-inline-item">
+                                            <button class="btn p-0">
+                                                <svg width="1.6em" height="1.6em" viewBox="0 0 16 16" class="bi bi-heart" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd" d="M8 2.748l-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+                                                    </svg>
+                                            </button>
+                                        </li>
+                                        <li class="list-inline-item">
+                                            <button class="btn p-0">
+                                                <a href="{% url 'photos:post' post.pk %}" >Zobacz</a>   
+                                            </button>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- END OF POSTs -->
+                    {% endfor %}
+                </div>
+                <div id="createPost" class="col-4 ">
+                    <div class="card position-fixed">
+                        <button class="btn btn-success btn-lg btn-block" style="height: 125px; width: 248px;">
+                            <a href="{% url 'photos:create_post' %}" style="text-decoration: none; color: white;">Dodaj post!</a> 
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block main2 %}
+    {% for post in post_list %}
+        {% include "includes/card.html" with post=post %}
+    {% empty %}
+        <p>Brak wpisów. Czy followujesz już kogoś?</p>
+    {% endfor %}
+{% endblock %} 
+
+
+
+{% comment %} <div class="news-area">
+        
+        <div>
+            {{ post }}
+        </div>
+        <div>
+            <a href="{% url 'photos:post' post.pk %}">(Zobacz)</a> 
+        </div>
+        
+    </div> {% endcomment %}

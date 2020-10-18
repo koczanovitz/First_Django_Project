@@ -1,0 +1,97 @@
+* {
+    font-family: 'Ubuntu', sans-serif;
+}
+
+.topbar-profile-photo {
+    width: 150px;
+    height: 150px;
+    position: relative;
+    border: 2px solid black;
+}
+
+.link-menu {
+    color: black;
+}
+
+.story-profile-photo {
+    width: 56px;
+    height: 56px;
+    position: relative;
+    /* border-width: 2px !important; */
+}
+
+.post-profile-photo {
+    width: 46px;
+    height: 46px;
+    position: relative;
+    /* border-width: 2px !important; */
+}
+
+
+/* ---------------------- FONT SIZE & STYLE ----------------------------- */
+
+.fs-08rem {
+    font-size: .8rem;
+}
+
+.fs-1rem {
+    font-size: 1rem;
+}
+
+.fs-3rem {
+    font-size: 500%;
+}
+
+
+/* --------grid ------------- */
+
+.grid-1 {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(5, 50px);
+}
+
+.grid-11 {
+    grid-column: 2/-1;
+    grid-row: 2/3;
+}
+
+.grid-12 {
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+.grid-13 {
+    grid-column: 3/4;
+    grid-row: 3/4;
+}
+
+.grid-14 {
+    grid-column: 4/6;
+    grid-row: 3/4;
+}
+
+.grid-15 {
+    grid-column: 2/4;
+    grid-row: 4/-1;
+}
+
+.grid-16 {
+    grid-column: 4/-1;
+    grid-row: 4/-1;
+}
+
+
+/* --------------------- media queries -------------------------- */
+
+@media (max-width: 992px) {
+    #instaounceLogo {
+        display: none;
+    }
+    #searchBar {
+        display: none;
+    }
+    #createPost {
+        display: none;
+    }
+}
